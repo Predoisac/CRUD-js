@@ -7,7 +7,7 @@ const router = express.Router()
 router.get("/users", ControllerUser.FindAll)
 router.get("/user/:index", ControllerUser.FindOne)
 router.post("/user", ControllerUser.Create)
-router.put("/user", ControllerUser.Update)
-router.delete("/user", ControllerUser.Delete)
+router.put("/user/:index/:nome", ControllerUser.Update)
+router.delete("/user/:index", ControllerUser.Delete)
 
 export default router

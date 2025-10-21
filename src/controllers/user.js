@@ -36,10 +36,10 @@ class ControllerUser {
     Update(req, res) {
         try {
             const index = req.params.index
-            const nome = req.body.nome
+            const nome = req.params.nome
             const resultado = ServiceUser.Update(index, nome)
 
-            res.status(201).send(resultado)
+            res.status(200).send(resultado)
         } catch (error) {
             res.status(500).send(error.message)
         }
