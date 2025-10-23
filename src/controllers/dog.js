@@ -1,61 +1,55 @@
-import ServiceUser from "../services/user.js"
+import ServiceDog from "../services/dog.js"
 
-class ControllerUser {
-    FindAll(_, res) {
+class ControllerDog {
+    FindAll(req, res) {
         try {
-            const resultado = ServiceUser.FindAll()
+            const result = ServiceDog.FindAll()
 
-            res.send({ nomes: resultado })
+            res.status(200).send({ dogs: result })
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
     FindOne(req, res) {
         try {
             const index = req.params.index
-            const resultado = ServiceUser.FindOne(index)
+            const result = ServiceDog.FindOne(index)
 
-            res.send({ nome: resultado })
+            res.status(200).send({ dog: result })
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
     Create(req, res) {
         try {
-            const nome = req.body.nome
-            const resultado = ServiceUser.Create(nome)
+            const name = req.body.name
+            ServiceDog.Create(name)
 
-            res.send(resultado)
+            res.status(201).send()
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
     Update(req, res) {
         try {
             const index = req.params.index
-            const nome = req.body.nome
-            const resultado = ServiceUser.Update(index, nome)
-
-            res.status(200).send(resultado)
+            const name = req.body.name
+            ServiceDog.Update(index, name)
+            res.status(200).send()
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
     Delete(req, res) {
         try {
             const index = req.params.index
-            const resultado = ServiceUser.Delete(index)
+            ServiceDog.Delete(index)
 
-            res.status(204).send(resultado)
+            res.status(204).send()
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
 }
 
-export default new ControllerUser()
+export default new ControllerDog()

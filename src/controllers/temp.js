@@ -1,61 +1,57 @@
-import ServiceUser from "../services/user.js"
+import ServiceTemp from "../services/temp.js"
 
-class ControllerUser {
+class ControllerTemp {
     FindAll(_, res) {
         try {
-            const resultado = ServiceUser.FindAll()
+            const result = ServiceTemp.FindAll()
 
-            res.send({ nomes: resultado })
+            res.status(200).send({temperatures: result})
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
+
     FindOne(req, res) {
         try {
             const index = req.params.index
-            const resultado = ServiceUser.FindOne(index)
+            const result = ServiceTemp.FindOne(index)
 
-            res.send({ nome: resultado })
+            res.status(200).send({temperature: result})
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
     Create(req, res) {
         try {
-            const nome = req.body.nome
-            const resultado = ServiceUser.Create(nome)
+            const value = req.body.value
+            ServiceTemp.Create(value)
 
-            res.send(resultado)
+            res.status(201).send()
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
     Update(req, res) {
         try {
             const index = req.params.index
-            const nome = req.body.nome
-            const resultado = ServiceUser.Update(index, nome)
+            const value = req.body.value
+            ServiceTemp.Update(index, value)
 
-            res.status(200).send(resultado)
+            res.status(200).send()
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
     Delete(req, res) {
         try {
             const index = req.params.index
-            const resultado = ServiceUser.Delete(index)
+            ServiceTemp.Delete(index)
 
-            res.status(204).send(resultado)
+            res.status(204).send()
         } catch (error) {
             res.status(500).send(error.message)
         }
-
     }
 }
 
-export default new ControllerUser()
+export default new ControllerTemp()
