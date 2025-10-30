@@ -1,43 +1,43 @@
 import ServiceUser from "../services/user.js"
 
 class ControllerUser {
-    FindAll(_, res) {
+     async FindAll(_, res) {
         try {
-            const resultado = ServiceUser.FindAll()
+            const resultado = await ServiceUser.FindAll()
 
-            res.send({ nomes: resultado })
+            res.send({ users: resultado })
         } catch (error) {
             res.status(500).send(error.message)
         }
 
     }
-    FindOne(req, res) {
+    async FindOne(req, res) {
         try {
-            const index = req.params.index
-            const resultado = ServiceUser.FindOne(index)
+            const id = req.params.id
+            const resultado = await ServiceUser.FindOne(id)
 
-            res.send({ nome: resultado })
+            res.send({ user: resultado })
         } catch (error) {
             res.status(500).send(error.message)
         }
 
     }
-    Create(req, res) {
+    async Create(req, res) {
         try {
-            const nome = req.body.nome
-            const resultado = ServiceUser.Create(nome)
+            const {nome, email, senha, ativo} = req.body
+            const resultado = await ServiceUser.Create(nome, email, senha, ativo)
 
-            res.send(resultado)
+            res.status(201).send(resultado)
         } catch (error) {
             res.status(500).send(error.message)
         }
 
     }
-    Update(req, res) {
+    async Update(req, res) {
         try {
-            const index = req.params.index
-            const nome = req.body.nome
-            const resultado = ServiceUser.Update(index, nome)
+            const id = req.params.id
+            const {nome, email, senha, ativo} = req.body
+            const resultado = await ServiceUser.Update(id, nome, email, senha, ativo)
 
             res.status(200).send(resultado)
         } catch (error) {
@@ -45,10 +45,10 @@ class ControllerUser {
         }
 
     }
-    Delete(req, res) {
+    async Delete(req, res) {
         try {
-            const index = req.params.index
-            const resultado = ServiceUser.Delete(index)
+            const id = req.params.id
+            const resultado = await ServiceUser.Delete(id)
 
             res.status(204).send(resultado)
         } catch (error) {

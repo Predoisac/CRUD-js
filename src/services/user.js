@@ -1,20 +1,61 @@
-import ModelUser from "../models/user.js"
+import { where } from "sequelize"
+import User from "../models/user.js"
 
 class ServiceUser {
-    FindAll() {
-        return ModelUser.FindAll()
+    async FindAll() {
+        const user = await User.findAll()
+        
+        return user
     }
-    FindOne(index) {
-        return ModelUser.FindOne(index)
+    async FindOne(id) {
+        if (!id) {
+            throw new Error("Favor informar o id")
+        }
+        const user = await User.findByPk(id)
+
+        if (!user) {
+            throw new Error("user não encontrado")
+        }
+
+        return user
     }
-    Create(nome) {
-        return ModelUser.Create(nome)
+    async Create(nome, email, senha, ativo) {
+        if (!nome || !email || !senha) {
+            throw new Error("Preenche todos os campos")
+        }
+
+        await User.create({
+            nome, email, senha, ativo
+        })
     }
-    Update(index, nome) {
-        return ModelUser.Update(index, nome)
+     async Update(id, nome, email, senha, ativo) {
+        if (!id) {
+            throw new Error("Favor informar o id")
+        }
+        const user = await User.findByPk(id)
+
+        if (!user) {
+            throw new Error("user não encontrado")
+        }
+
+        user.nome = nome
+        user.email = email
+        user.senha = senha
+        user.ativo = ativo
+
+        await user.save()
     }
-    Delete(index) {
-        return ModelUser.Delete(index)
+     async Delete(id) {
+        if (!id) {
+            throw new Error("Favor informar o id")
+        }
+        const user = await User.findByPk(id)
+
+        if (!user) {
+            throw new Error("user não encontrado")
+        }
+
+        await user.destroy()
     }
 }
 export default new ServiceUser()

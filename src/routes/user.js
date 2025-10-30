@@ -5,9 +5,9 @@ const router = express.Router()
 
 //api v1
 router.get("/users", ControllerUser.FindAll)
-router.get("/user/:index", ControllerUser.FindOne)
+router.get("/user/:id", ControllerUser.FindOne)
 router.post("/user", ControllerUser.Create)
-router.put("/user/:index/:nome", ControllerUser.Update)
-router.delete("/user/:index", ControllerUser.Delete)
+router.put("/user/:id", ControllerUser.Update)
+router.delete("/user/:id", ControllerUser.Delete)
 
 export default router
