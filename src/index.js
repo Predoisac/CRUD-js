@@ -4,7 +4,7 @@ import database from "./config/database.js";
 
 const app = express();  //inicalizando api through express
 app.use(express.json())
-app.use("/api/v1", router)
+app.use("/api", router)
 
 const port = 3000
 

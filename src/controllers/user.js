@@ -1,7 +1,7 @@
 import ServiceUser from "../services/user.js"
 
 class ControllerUser {
-     async FindAll(_, res) {
+    async FindAll(_, res) {
         try {
             const resultado = await ServiceUser.FindAll()
 
@@ -24,10 +24,10 @@ class ControllerUser {
     }
     async Create(req, res) {
         try {
-            const {nome, email, senha, ativo} = req.body
-            const resultado = await ServiceUser.Create(nome, email, senha, ativo)
+            const { nome, email, senha, ativo } = req.body
+            await ServiceUser.Create(nome, email, senha, ativo)
 
-            res.status(201).send(resultado)
+            res.status(201).send()
         } catch (error) {
             res.status(500).send(error.message)
         }
@@ -36,10 +36,10 @@ class ControllerUser {
     async Update(req, res) {
         try {
             const id = req.params.id
-            const {nome, email, senha, ativo} = req.body
-            const resultado = await ServiceUser.Update(id, nome, email, senha, ativo)
+            const { nome, email, senha, ativo } = req.body
+            await ServiceUser.Update(id, nome, email, senha, ativo)
 
-            res.status(200).send(resultado)
+            res.status(200).send()
         } catch (error) {
             res.status(500).send(error.message)
         }
@@ -48,12 +48,25 @@ class ControllerUser {
     async Delete(req, res) {
         try {
             const id = req.params.id
-            const resultado = await ServiceUser.Delete(id)
+            await ServiceUser.Delete(id)
 
-            res.status(204).send(resultado)
+            res.status(204).send()
         } catch (error) {
             res.status(500).send(error.message)
         }
+
+    }
+
+    async Login(req, res) {
+        try {
+            const { email, senha } = req.body
+            const token = await ServiceUser.Login(email, senha)
+
+            res.status(200).send(token)
+        } catch (error) {
+            res.status(500).send(error.message)
+        }
+
 
     }
 }
