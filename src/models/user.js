@@ -11,7 +11,10 @@ class User {
             nome: { type: database.db.Sequelize.STRING },
             email: { type: database.db.Sequelize.STRING },
             senha: { type: database.db.Sequelize.STRING },
-            ativo: { type: database.db.Sequelize.BOOLEAN }
+            ativo: { type: database.db.Sequelize.BOOLEAN },
+            permissao: {
+                type: database.db.Sequelize.INTEGER
+            }
         }
         )
     }
